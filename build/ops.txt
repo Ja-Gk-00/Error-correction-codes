@@ -1,0 +1,1145 @@
+def Channel.__post_init__(self):
+    self :: ecc.channel.channel.Channel
+    r0 :: union[int, None]
+    r1 :: object
+    r2 :: str
+    r3 :: object
+    r4 :: str
+    r5 :: object
+    r6 :: object[1]
+    r7 :: object_ptr
+    r8 :: object
+    r9 :: bool
+    r10 :: None
+L0:
+    r0 = self.seed
+    if is_error(r0) goto L6 (error at __post_init__:56) else goto L1
+L1:
+    r1 = numpy :: module
+    r2 = 'random'
+    r3 = CPyObject_GetAttr(r1, r2)
+    if is_error(r3) goto L7 (error at __post_init__:56) else goto L2
+L2:
+    r4 = 'default_rng'
+    r5 = CPyObject_GetAttr(r3, r4)
+    dec_ref r3
+    if is_error(r5) goto L7 (error at __post_init__:56) else goto L3
+L3:
+    r6 = [r0]
+    r7 = load_address r6
+    r8 = PyObject_Vectorcall(r5, r7, 1, 0)
+    dec_ref r5
+    if is_error(r8) goto L7 (error at __post_init__:56) else goto L4
+L4:
+    dec_ref r0
+    self._rng = r8; r9 = is_error
+    if not r9 goto L6 (error at __post_init__:56) else goto L5 :: bool
+L5:
+    return 1
+L6:
+    r10 = <error> :: None
+    return r10
+L7:
+    dec_ref r0
+    goto L6
+
+def Channel.transmit(self, bits):
+    self :: ecc.channel.channel.Channel
+    bits :: object
+    r0 :: str
+    r1 :: object[1]
+    r2 :: object_ptr
+    r3, r4 :: object
+    r5 :: str
+    r6, r7 :: object
+    r8 :: float
+    r9 :: bit
+    t0 :: float
+    r10, r11 :: object
+    r12 :: str
+    r13 :: object[2]
+    r14 :: object_ptr
+    r15, r16 :: object
+    r17 :: str
+    r18, r19 :: object
+    r20 :: float
+    r21 :: bit
+    r22 :: float
+    r23, r24, r25 :: object
+    r26 :: str
+    r27 :: object[3]
+    r28 :: object_ptr
+    r29, r30 :: object
+    r31 :: str
+    r32 :: dict
+    r33, r34 :: object
+    r35 :: dict
+    r36 :: str
+    r37 :: object
+    r38 :: i32
+    r39 :: bit
+    r40 :: bool
+    r41 :: object
+    r42 :: str
+    r43 :: object[1]
+    r44 :: object_ptr
+    r45 :: object
+    r46 :: float
+    r47 :: bit
+    r48 :: object
+    r49 :: str
+    r50, r51, r52 :: object
+    r53 :: object[1]
+    r54 :: object_ptr
+    r55 :: object
+    r56 :: i32
+    r57 :: bit
+    r58 :: bool
+    r59 :: bit
+    r60 :: object
+    r61 :: str
+    r62 :: object
+    r63 :: object[2]
+    r64 :: object_ptr
+    r65, r66 :: object
+    r67 :: str
+    r68, r69 :: object
+    r70 :: float
+    r71 :: bit
+    r72, r73 :: object
+    r74 :: str
+    r75 :: object[2]
+    r76 :: object_ptr
+    r77, decoded, r78 :: object
+    r79 :: str
+    r80, r81 :: object
+    r82 :: float
+    r83 :: bit
+    r84 :: float
+    r85 :: int
+    r86, r87 :: object
+    r88 :: int
+    r89, r90, r91, r92 :: object
+    r93, r94 :: int
+    r95 :: native_int
+    r96 :: bit
+    r97 :: native_int
+    r98, r99 :: bit
+    r100 :: bool
+    r101 :: bit
+    r102, r103, r104 :: int
+    r105 :: object
+    r106 :: str
+    r107, r108 :: object
+    r109 :: str
+    r110, r111 :: object
+    r112 :: object[2]
+    r113 :: object_ptr
+    r114, r115 :: object
+    r116 :: list
+    r117, r118, r119 :: ptr
+    r120 :: object
+    r121 :: str
+    r122 :: object
+    r123 :: object[1]
+    r124 :: object_ptr
+    r125 :: object
+    r126 :: dict
+    r127 :: str
+    r128, r129, r130 :: object
+    r131 :: str
+    r132, r133 :: object
+    r134 :: object[9]
+    r135 :: object_ptr
+    r136, r137 :: object
+    r138, r139, r140, r141, r142 :: str
+    r143 :: tuple
+    r144 :: dict
+    r145, r146 :: ecc.channel.channel.ChannelResult
+L0:
+    r0 = 'copy'
+    r1 = [bits]
+    r2 = load_address r1
+    r3 = PyObject_VectorcallMethod(r0, r2, 9223372036854775809, 0)
+    if is_error(r3) goto L68 (error at transmit:60) else goto L1
+L1:
+    r4 = time :: module
+    r5 = 'perf_counter'
+    r6 = CPyObject_GetAttr(r4, r5)
+    if is_error(r6) goto L69 (error at transmit:63) else goto L2
+L2:
+    r7 = PyObject_Vectorcall(r6, 0, 0, 0)
+    dec_ref r6
+    if is_error(r7) goto L69 (error at transmit:63) else goto L3
+L3:
+    r8 = unbox(float, r7)
+    dec_ref r7
+    r9 = r8 == -113.0
+    if r9 goto L5 else goto L4 :: bool
+L4:
+    t0 = r8
+    r10 = self.code
+    if is_error(r10) goto L69 (error at transmit:64) else goto L6
+L5:
+    r11 = PyErr_Occurred()
+    if not is_error(r11) goto L69 (error at transmit:63) else goto L4
+L6:
+    r12 = 'encode'
+    r13 = [r10, r3]
+    r14 = load_address r13
+    r15 = PyObject_VectorcallMethod(r12, r14, 9223372036854775810, 0)
+    if is_error(r15) goto L70 (error at transmit:64) else goto L7
+L7:
+    dec_ref r10
+    r16 = time :: module
+    r17 = 'perf_counter'
+    r18 = CPyObject_GetAttr(r16, r17)
+    if is_error(r18) goto L71 (error at transmit:65) else goto L8
+L8:
+    r19 = PyObject_Vectorcall(r18, 0, 0, 0)
+    dec_ref r18
+    if is_error(r19) goto L71 (error at transmit:65) else goto L9
+L9:
+    r20 = unbox(float, r19)
+    dec_ref r19
+    r21 = r20 == -113.0
+    if r21 goto L11 else goto L10 :: bool
+L10:
+    r22 = r20 - t0
+    r23 = self.noise
+    if is_error(r23) goto L71 (error at transmit:68) else goto L12
+L11:
+    r24 = PyErr_Occurred()
+    if not is_error(r24) goto L71 (error at transmit:65) else goto L10
+L12:
+    r25 = self._rng
+    if is_error(r25) goto L72 (error at transmit:68) else goto L13
+L13:
+    r26 = 'apply'
+    r27 = [r23, r15, r25]
+    r28 = load_address r27
+    r29 = PyObject_VectorcallMethod(r26, r28, 9223372036854775811, 0)
+    if is_error(r29) goto L73 (error at transmit:68) else goto L14
+L14:
+    dec_ref r23
+    dec_ref r25
+    r30 = ('PolarCode',)
+    r31 = 'ecc.codes.polar'
+    r32 = ecc.channel.channel.globals :: static
+    r33 = CPyImport_ImportFromMany(r31, r30, r30, r32)
+    if is_error(r33) goto L74 (error at transmit:71) else goto L15
+L15:
+    ecc.codes.polar = r33 :: module
+    dec_ref r33
+    r34 = self.code
+    if is_error(r34) goto L74 (error at transmit:73) else goto L16
+L16:
+    r35 = ecc.channel.channel.globals :: static
+    r36 = 'PolarCode'
+    r37 = CPyDict_GetItem(r35, r36)
+    if is_error(r37) goto L75 (error at transmit:73) else goto L17
+L17:
+    r38 = PyObject_IsInstance(r34, r37)
+    dec_ref r34
+    dec_ref r37
+    r39 = r38 >= 0 :: signed
+    if not r39 goto L74 (error at transmit:73) else goto L18 :: bool
+L18:
+    r40 = truncate r38: i32 to builtins.bool
+    if r40 goto L19 else goto L31 :: bool
+L19:
+    r41 = self.noise
+    if is_error(r41) goto L74 (error at transmit:74) else goto L20
+L20:
+    r42 = 'expected_ber'
+    r43 = [r41]
+    r44 = load_address r43
+    r45 = PyObject_VectorcallMethod(r42, r44, 9223372036854775809, 0)
+    if is_error(r45) goto L76 (error at transmit:74) else goto L21
+L21:
+    dec_ref r41
+    r46 = unbox(float, r45)
+    dec_ref r45
+    r47 = r46 == -113.0
+    if r47 goto L23 else goto L22 :: bool
+L22:
+    r48 = numpy :: module
+    r49 = 'isnan'
+    r50 = CPyObject_GetAttr(r48, r49)
+    if is_error(r50) goto L74 (error at transmit:75) else goto L24
+L23:
+    r51 = PyErr_Occurred()
+    if not is_error(r51) goto L74 (error at transmit:74) else goto L22
+L24:
+    r52 = box(float, r46)
+    r53 = [r52]
+    r54 = load_address r53
+    r55 = PyObject_Vectorcall(r50, r54, 1, 0)
+    dec_ref r50
+    if is_error(r55) goto L77 (error at transmit:75) else goto L25
+L25:
+    dec_ref r52
+    r56 = PyObject_IsTrue(r55)
+    dec_ref r55
+    r57 = r56 >= 0 :: signed
+    if not r57 goto L74 (error at transmit:75) else goto L26 :: bool
+L26:
+    r58 = truncate r56: i32 to builtins.bool
+    if r58 goto L31 else goto L27 :: bool
+L27:
+    r59 = r46 > 0.0
+    if r59 goto L28 else goto L31 :: bool
+L28:
+    r60 = self.code
+    if is_error(r60) goto L74 (error at transmit:76) else goto L29
+L29:
+    r61 = 'set_channel_p'
+    r62 = box(float, r46)
+    r63 = [r60, r62]
+    r64 = load_address r63
+    r65 = PyObject_VectorcallMethod(r61, r64, 9223372036854775810, 0)
+    if is_error(r65) goto L78 (error at transmit:76) else goto L79
+L30:
+    dec_ref r60
+    dec_ref r62
+L31:
+    r66 = time :: module
+    r67 = 'perf_counter'
+    r68 = CPyObject_GetAttr(r66, r67)
+    if is_error(r68) goto L74 (error at transmit:79) else goto L32
+L32:
+    r69 = PyObject_Vectorcall(r68, 0, 0, 0)
+    dec_ref r68
+    if is_error(r69) goto L74 (error at transmit:79) else goto L33
+L33:
+    r70 = unbox(float, r69)
+    dec_ref r69
+    r71 = r70 == -113.0
+    if r71 goto L35 else goto L34 :: bool
+L34:
+    t0 = r70
+    r72 = self.code
+    if is_error(r72) goto L74 (error at transmit:80) else goto L36
+L35:
+    r73 = PyErr_Occurred()
+    if not is_error(r73) goto L74 (error at transmit:79) else goto L34
+L36:
+    r74 = 'decode'
+    r75 = [r72, r29]
+    r76 = load_address r75
+    r77 = PyObject_VectorcallMethod(r74, r76, 9223372036854775810, 0)
+    if is_error(r77) goto L80 (error at transmit:80) else goto L37
+L37:
+    dec_ref r72
+    decoded = r77
+    r78 = time :: module
+    r79 = 'perf_counter'
+    r80 = CPyObject_GetAttr(r78, r79)
+    if is_error(r80) goto L81 (error at transmit:81) else goto L38
+L38:
+    r81 = PyObject_Vectorcall(r80, 0, 0, 0)
+    dec_ref r80
+    if is_error(r81) goto L81 (error at transmit:81) else goto L39
+L39:
+    r82 = unbox(float, r81)
+    dec_ref r81
+    r83 = r82 == -113.0
+    if r83 goto L41 else goto L40 :: bool
+L40:
+    r84 = r82 - t0
+    r85 = CPyObject_Size(r3)
+    if is_error(r85) goto L81 (error at transmit:84) else goto L82
+L41:
+    r86 = PyErr_Occurred()
+    if not is_error(r86) goto L81 (error at transmit:81) else goto L40
+L42:
+    r87 = load_address _Py_NoneStruct
+    r88 = CPyObject_Size(r3)
+    if is_error(r88) goto L81 (error at transmit:84) else goto L43
+L43:
+    r89 = load_address _Py_NoneStruct
+    r90 = box(int, r88)
+    r91 = PySlice_New(r87, r90, r89)
+    dec_ref r90
+    if is_error(r91) goto L81 (error at transmit:84) else goto L44
+L44:
+    r92 = PyObject_GetItem(decoded, r91)
+    dec_ref decoded
+    dec_ref r91
+    if is_error(r92) goto L74 (error at transmit:84) else goto L45
+L45:
+    decoded = r92
+    r93 = CPyObject_Size(decoded)
+    if is_error(r93) goto L81 (error at transmit:85) else goto L46
+L46:
+    r94 = CPyObject_Size(r3)
+    if is_error(r94) goto L83 (error at transmit:85) else goto L47
+L47:
+    r95 = r93 & 1
+    r96 = r95 != 0
+    if r96 goto L49 else goto L48 :: bool
+L48:
+    r97 = r94 & 1
+    r98 = r97 != 0
+    if r98 goto L49 else goto L50 :: bool
+L49:
+    r99 = CPyTagged_IsLt_(r93, r94)
+    r100 = r99
+    goto L51
+L50:
+    r101 = r93 < r94 :: signed
+    r100 = r101
+L51:
+    dec_ref r93 :: int
+    dec_ref r94 :: int
+    if r100 goto L52 else goto L61 :: bool
+L52:
+    r102 = CPyObject_Size(r3)
+    if is_error(r102) goto L81 (error at transmit:87) else goto L53
+L53:
+    r103 = CPyObject_Size(decoded)
+    if is_error(r103) goto L84 (error at transmit:87) else goto L54
+L54:
+    r104 = CPyTagged_Subtract(r102, r103)
+    dec_ref r102 :: int
+    dec_ref r103 :: int
+    r105 = numpy :: module
+    r106 = 'uint8'
+    r107 = CPyObject_GetAttr(r105, r106)
+    if is_error(r107) goto L85 (error at transmit:87) else goto L55
+L55:
+    r108 = numpy :: module
+    r109 = 'zeros'
+    r110 = CPyObject_GetAttr(r108, r109)
+    if is_error(r110) goto L86 (error at transmit:87) else goto L56
+L56:
+    r111 = box(int, r104)
+    r112 = [r111, r107]
+    r113 = load_address r112
+    r114 = ('dtype',)
+    r115 = PyObject_Vectorcall(r110, r113, 1, r114)
+    dec_ref r110
+    if is_error(r115) goto L87 (error at transmit:87) else goto L57
+L57:
+    dec_ref r111
+    dec_ref r107
+    r116 = PyList_New(2)
+    if is_error(r116) goto L88 (error at transmit:87) else goto L58
+L58:
+    r117 = get_element_ptr r116 ob_item :: PyListObject
+    r118 = load_mem r117 :: ptr*
+    set_mem r118, decoded :: builtins.object*
+    r119 = r118 + 8
+    set_mem r119, r115 :: builtins.object*
+    r120 = numpy :: module
+    r121 = 'concatenate'
+    r122 = CPyObject_GetAttr(r120, r121)
+    if is_error(r122) goto L89 (error at transmit:86) else goto L59
+L59:
+    r123 = [r116]
+    r124 = load_address r123
+    r125 = PyObject_Vectorcall(r122, r124, 1, 0)
+    dec_ref r122
+    if is_error(r125) goto L89 (error at transmit:86) else goto L60
+L60:
+    dec_ref r116
+    decoded = r125
+L61:
+    r126 = ecc.channel.channel.globals :: static
+    r127 = 'Statistics'
+    r128 = CPyDict_GetItem(r126, r127)
+    if is_error(r128) goto L81 (error at transmit:91) else goto L62
+L62:
+    r129 = self.code
+    if is_error(r129) goto L90 (error at transmit:96) else goto L63
+L63:
+    r130 = self.noise
+    if is_error(r130) goto L91 (error at transmit:97) else goto L64
+L64:
+    r131 = 'compute'
+    r132 = box(float, r22)
+    r133 = box(float, r84)
+    r134 = [r128, r3, r15, r29, decoded, r129, r130, r132, r133]
+    r135 = load_address r134
+    r136 = ('original_bits', 'encoded_bits', 'noisy_bits', 'decoded_bits', 'code', 'noise', 'encode_time', 'decode_time')
+    r137 = PyObject_VectorcallMethod(r131, r135, 9223372036854775809, r136)
+    if is_error(r137) goto L92 (error at transmit:91) else goto L65
+L65:
+    dec_ref r128
+    dec_ref r129
+    dec_ref r130
+    dec_ref r132
+    dec_ref r133
+    r138 = 'original_bits'
+    r139 = 'encoded_bits'
+    r140 = 'noisy_bits'
+    r141 = 'decoded_bits'
+    r142 = 'stats'
+    r143 = CPyTuple_LoadEmptyTupleConstant()
+    r144 = CPyDict_Build(5, r138, r3, r139, r15, r140, r29, r141, decoded, r142, r137)
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r137
+    if is_error(r144) goto L93 (error at transmit:102) else goto L66
+L66:
+    r145 = ChannelResult(r143, r144)
+    dec_ref r143
+    dec_ref r144
+    if is_error(r145) goto L68 (error at transmit:102) else goto L67
+L67:
+    return r145
+L68:
+    r146 = <error> :: ecc.channel.channel.ChannelResult
+    return r146
+L69:
+    dec_ref r3
+    goto L68
+L70:
+    dec_ref r3
+    dec_ref r10
+    goto L68
+L71:
+    dec_ref r3
+    dec_ref r15
+    goto L68
+L72:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r23
+    goto L68
+L73:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r23
+    dec_ref r25
+    goto L68
+L74:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    goto L68
+L75:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref r34
+    goto L68
+L76:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref r41
+    goto L68
+L77:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref r52
+    goto L68
+L78:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref r60
+    dec_ref r62
+    goto L68
+L79:
+    dec_ref r65
+    goto L30
+L80:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref r72
+    goto L68
+L81:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    goto L68
+L82:
+    dec_ref r85 :: int
+    goto L42
+L83:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r93 :: int
+    goto L68
+L84:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r102 :: int
+    goto L68
+L85:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r104 :: int
+    goto L68
+L86:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r104 :: int
+    dec_ref r107
+    goto L68
+L87:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r107
+    dec_ref r111
+    goto L68
+L88:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r115
+    goto L68
+L89:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref r116
+    goto L68
+L90:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r128
+    goto L68
+L91:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r128
+    dec_ref r129
+    goto L68
+L92:
+    dec_ref r3
+    dec_ref r15
+    dec_ref r29
+    dec_ref decoded
+    dec_ref r128
+    dec_ref r129
+    dec_ref r130
+    dec_ref r132
+    dec_ref r133
+    goto L68
+L93:
+    dec_ref r143
+    goto L68
+
+def __top_level__():
+    r0, r1 :: object
+    r2 :: bit
+    r3 :: str
+    r4 :: object
+    r5 :: object_ptr
+    r6 :: object_ptr[1]
+    r7 :: c_ptr
+    r8 :: native_int[1]
+    r9 :: c_ptr
+    r10 :: object
+    r11 :: dict
+    r12, r13 :: str
+    r14 :: bit
+    r15 :: object
+    r16 :: str
+    r17 :: dict
+    r18, r19 :: object
+    r20 :: str
+    r21 :: dict
+    r22 :: object
+    r23 :: object_ptr
+    r24 :: object_ptr[1]
+    r25 :: c_ptr
+    r26 :: native_int[1]
+    r27 :: c_ptr
+    r28 :: object
+    r29 :: dict
+    r30, r31 :: str
+    r32 :: bit
+    r33 :: object
+    r34 :: str
+    r35 :: dict
+    r36, r37 :: object
+    r38 :: str
+    r39 :: dict
+    r40, r41 :: object
+    r42 :: str
+    r43 :: dict
+    r44, r45 :: object
+    r46 :: str
+    r47 :: dict
+    r48, r49 :: object
+    r50 :: str
+    r51, r52 :: object
+    r53 :: bool
+    r54, r55, r56, r57, r58, r59 :: str
+    r60 :: tuple
+    r61 :: i32
+    r62 :: bit
+    r63 :: dict
+    r64 :: str
+    r65 :: i32
+    r66 :: bit
+    r67 :: dict
+    r68 :: tuple[]
+    r69 :: dict
+    r70, r71 :: object
+    r72 :: str
+    r73 :: i32
+    r74 :: bit
+    r75 :: object
+    r76 :: str
+    r77 :: i32
+    r78 :: bit
+    r79 :: object
+    r80 :: str
+    r81 :: i32
+    r82 :: bit
+    r83 :: object
+    r84 :: str
+    r85 :: i32
+    r86 :: bit
+    r87 :: dict
+    r88 :: str
+    r89 :: object
+    r90 :: str
+    r91 :: i32
+    r92 :: bit
+    r93 :: str
+    r94 :: i32
+    r95 :: bit
+    r96, r97 :: str
+    r98 :: i32
+    r99 :: bit
+    r100, r101 :: str
+    r102 :: i32
+    r103 :: bit
+    r104 :: dict
+    r105 :: str
+    r106 :: object
+    r107 :: str
+    r108 :: bit
+    r109 :: object
+    r110 :: str
+    r111, r112 :: object
+    r113 :: bool
+    r114, r115, r116, r117, r118 :: str
+    r119 :: tuple
+    r120 :: i32
+    r121 :: bit
+    r122 :: dict
+    r123 :: str
+    r124 :: i32
+    r125 :: bit
+    r126 :: dict
+    r127 :: tuple[]
+    r128 :: dict
+    r129 :: object
+    r130 :: dict
+    r131 :: str
+    r132 :: object
+    r133 :: str
+    r134 :: i32
+    r135 :: bit
+    r136 :: dict
+    r137 :: str
+    r138 :: object
+    r139 :: str
+    r140 :: i32
+    r141 :: bit
+    r142 :: object
+    r143 :: str
+    r144 :: i32
+    r145 :: bit
+    r146 :: str
+    r147 :: object
+    r148 :: i32
+    r149 :: bit
+    r150 :: object
+    r151 :: str
+    r152 :: i32
+    r153 :: bit
+    r154 :: dict
+    r155 :: str
+    r156, r157, r158 :: object
+    r159 :: object[2]
+    r160 :: object_ptr
+    r161, r162 :: object
+    r163 :: str
+    r164 :: i32
+    r165 :: bit
+    r166 :: str
+    r167 :: i32
+    r168 :: bit
+    r169, r170 :: str
+    r171 :: i32
+    r172 :: bit
+    r173, r174 :: str
+    r175 :: i32
+    r176 :: bit
+    r177 :: dict
+    r178 :: str
+    r179 :: object
+    r180 :: str
+    r181 :: bit
+    r182 :: None
+L0:
+    r0 = builtins :: module
+    r1 = load_address _Py_NoneStruct
+    r2 = r0 != r1
+    if r2 goto L3 else goto L1 :: bool
+L1:
+    r3 = 'builtins'
+    r4 = PyImport_Import(r3)
+    if is_error(r4) goto L52 (error at <module>:-1) else goto L2
+L2:
+    builtins = r4 :: module
+    dec_ref r4
+L3:
+    r5 = load_address time :: module
+    r6 = [r5]
+    r7 = load_address r6
+    r8 = [3]
+    r9 = load_address r8
+    r10 = (('time', 'time', 'time'),)
+    r11 = ecc.channel.channel.globals :: static
+    r12 = 'src\\ecc\\channel\\channel.py'
+    r13 = '<module>'
+    r14 = CPyImport_ImportMany(r10, r7, r11, r12, r13, r9)
+    if not r14 goto L52 else goto L4 :: bool
+L4:
+    r15 = ('dataclass', 'field')
+    r16 = 'dataclasses'
+    r17 = ecc.channel.channel.globals :: static
+    r18 = CPyImport_ImportFromMany(r16, r15, r15, r17)
+    if is_error(r18) goto L52 (error at <module>:4) else goto L5
+L5:
+    dataclasses = r18 :: module
+    dec_ref r18
+    r19 = ('Any',)
+    r20 = 'typing'
+    r21 = ecc.channel.channel.globals :: static
+    r22 = CPyImport_ImportFromMany(r20, r19, r19, r21)
+    if is_error(r22) goto L52 (error at <module>:6) else goto L6
+L6:
+    typing = r22 :: module
+    dec_ref r22
+    r23 = load_address numpy :: module
+    r24 = [r23]
+    r25 = load_address r24
+    r26 = [8]
+    r27 = load_address r26
+    r28 = (('numpy', 'numpy', 'np'),)
+    r29 = ecc.channel.channel.globals :: static
+    r30 = 'src\\ecc\\channel\\channel.py'
+    r31 = '<module>'
+    r32 = CPyImport_ImportMany(r28, r25, r29, r30, r31, r27)
+    if not r32 goto L52 else goto L7 :: bool
+L7:
+    r33 = ('NDArray',)
+    r34 = 'numpy.typing'
+    r35 = ecc.channel.channel.globals :: static
+    r36 = CPyImport_ImportFromMany(r34, r33, r33, r35)
+    if is_error(r36) goto L52 (error at <module>:9) else goto L8
+L8:
+    numpy.typing = r36 :: module
+    dec_ref r36
+    r37 = ('NoiseModel',)
+    r38 = 'ecc.channel.noise'
+    r39 = ecc.channel.channel.globals :: static
+    r40 = CPyImport_ImportFromMany(r38, r37, r37, r39)
+    if is_error(r40) goto L52 (error at <module>:11) else goto L9
+L9:
+    ecc.channel.noise = r40 :: module
+    dec_ref r40
+    r41 = ('ErrorCorrectionCode',)
+    r42 = 'ecc.codes.base'
+    r43 = ecc.channel.channel.globals :: static
+    r44 = CPyImport_ImportFromMany(r42, r41, r41, r43)
+    if is_error(r44) goto L52 (error at <module>:12) else goto L10
+L10:
+    ecc.codes.base = r44 :: module
+    dec_ref r44
+    r45 = ('Statistics',)
+    r46 = 'ecc.stats.metrics'
+    r47 = ecc.channel.channel.globals :: static
+    r48 = CPyImport_ImportFromMany(r46, r45, r45, r47)
+    if is_error(r48) goto L52 (error at <module>:13) else goto L11
+L11:
+    ecc.stats.metrics = r48 :: module
+    dec_ref r48
+    r49 = <error> :: object
+    r50 = 'ecc.channel.channel'
+    r51 = ecc.channel.channel.ChannelResult_template :: type
+    r52 = CPyType_FromTemplate(r51, r49, r50)
+    if is_error(r52) goto L52 (error at <module>:17) else goto L12
+L12:
+    r53 = ChannelResult_trait_vtable_setup()
+    if is_error(r53) goto L53 (error at <module>:-1) else goto L13
+L13:
+    r54 = '__mypyc_attrs__'
+    r55 = 'original_bits'
+    r56 = 'encoded_bits'
+    r57 = 'noisy_bits'
+    r58 = 'decoded_bits'
+    r59 = 'stats'
+    r60 = PyTuple_Pack(5, r55, r56, r57, r58, r59)
+    if is_error(r60) goto L53 (error at <module>:17) else goto L14
+L14:
+    r61 = PyObject_SetAttr(r52, r54, r60)
+    dec_ref r60
+    r62 = r61 >= 0 :: signed
+    if not r62 goto L53 (error at <module>:17) else goto L15 :: bool
+L15:
+    ecc.channel.channel.ChannelResult = r52 :: type
+    r63 = ecc.channel.channel.globals :: static
+    r64 = 'ChannelResult'
+    r65 = PyDict_SetItem(r63, r64, r52)
+    r66 = r65 >= 0 :: signed
+    if not r66 goto L53 (error at <module>:17) else goto L16 :: bool
+L16:
+    r67 = PyDict_New()
+    if is_error(r67) goto L53 (error at <module>:17) else goto L17
+L17:
+    r68 = ()
+    r69 = PyDict_New()
+    if is_error(r69) goto L54 (error at <module>:17) else goto L18
+L18:
+    r70 = load_address PyType_Type
+    r71 = load_address PyType_Type
+    r72 = 'original_bits'
+    r73 = PyDict_SetItem(r69, r72, r71)
+    r74 = r73 >= 0 :: signed
+    if not r74 goto L55 (error at <module>:29) else goto L19 :: bool
+L19:
+    r75 = load_address PyType_Type
+    r76 = 'encoded_bits'
+    r77 = PyDict_SetItem(r69, r76, r75)
+    r78 = r77 >= 0 :: signed
+    if not r78 goto L55 (error at <module>:30) else goto L20 :: bool
+L20:
+    r79 = load_address PyType_Type
+    r80 = 'noisy_bits'
+    r81 = PyDict_SetItem(r69, r80, r79)
+    r82 = r81 >= 0 :: signed
+    if not r82 goto L55 (error at <module>:31) else goto L21 :: bool
+L21:
+    r83 = load_address PyType_Type
+    r84 = 'decoded_bits'
+    r85 = PyDict_SetItem(r69, r84, r83)
+    r86 = r85 >= 0 :: signed
+    if not r86 goto L55 (error at <module>:32) else goto L22 :: bool
+L22:
+    r87 = ecc.channel.channel.globals :: static
+    r88 = 'Statistics'
+    r89 = CPyDict_GetItem(r87, r88)
+    if is_error(r89) goto L55 (error at <module>:33) else goto L23
+L23:
+    r90 = 'stats'
+    r91 = PyDict_SetItem(r69, r90, r89)
+    dec_ref r89
+    r92 = r91 >= 0 :: signed
+    if not r92 goto L55 (error at <module>:33) else goto L24 :: bool
+L24:
+    r93 = '__annotations__'
+    r94 = CPyDict_SetItem(r67, r93, r69)
+    r95 = r94 >= 0 :: signed
+    if not r95 goto L55 (error at <module>:17) else goto L25 :: bool
+L25:
+    r96 = 'mypyc filler docstring'
+    r97 = '__doc__'
+    r98 = CPyDict_SetItem(r67, r97, r96)
+    r99 = r98 >= 0 :: signed
+    if not r99 goto L55 (error at <module>:17) else goto L26 :: bool
+L26:
+    r100 = 'ecc.channel.channel'
+    r101 = '__module__'
+    r102 = CPyDict_SetItem(r67, r101, r100)
+    r103 = r102 >= 0 :: signed
+    if not r103 goto L55 (error at <module>:17) else goto L27 :: bool
+L27:
+    r104 = ecc.channel.channel.globals :: static
+    r105 = 'dataclass'
+    r106 = CPyDict_GetItem(r104, r105)
+    if is_error(r106) goto L55 (error at <module>:16) else goto L28
+L28:
+    r107 = 'dataclasses'
+    r108 = CPyDataclass_SleightOfHand(r106, r52, r67, r69, r107)
+    dec_ref r106
+    dec_ref r52
+    dec_ref r67
+    dec_ref r69
+    if not r108 goto L52 (error at <module>:17) else goto L29 :: bool
+L29:
+    r109 = <error> :: object
+    r110 = 'ecc.channel.channel'
+    r111 = ecc.channel.channel.Channel_template :: type
+    r112 = CPyType_FromTemplate(r111, r109, r110)
+    if is_error(r112) goto L52 (error at <module>:37) else goto L30
+L30:
+    r113 = Channel_trait_vtable_setup()
+    if is_error(r113) goto L56 (error at <module>:-1) else goto L31
+L31:
+    r114 = '__mypyc_attrs__'
+    r115 = 'code'
+    r116 = 'noise'
+    r117 = 'seed'
+    r118 = '_rng'
+    r119 = PyTuple_Pack(4, r115, r116, r117, r118)
+    if is_error(r119) goto L56 (error at <module>:37) else goto L32
+L32:
+    r120 = PyObject_SetAttr(r112, r114, r119)
+    dec_ref r119
+    r121 = r120 >= 0 :: signed
+    if not r121 goto L56 (error at <module>:37) else goto L33 :: bool
+L33:
+    ecc.channel.channel.Channel = r112 :: type
+    r122 = ecc.channel.channel.globals :: static
+    r123 = 'Channel'
+    r124 = PyDict_SetItem(r122, r123, r112)
+    r125 = r124 >= 0 :: signed
+    if not r125 goto L56 (error at <module>:37) else goto L34 :: bool
+L34:
+    r126 = PyDict_New()
+    if is_error(r126) goto L56 (error at <module>:37) else goto L35
+L35:
+    r127 = ()
+    r128 = PyDict_New()
+    if is_error(r128) goto L57 (error at <module>:37) else goto L36
+L36:
+    r129 = load_address PyType_Type
+    r130 = ecc.channel.channel.globals :: static
+    r131 = 'ErrorCorrectionCode'
+    r132 = CPyDict_GetItem(r130, r131)
+    if is_error(r132) goto L58 (error at <module>:50) else goto L37
+L37:
+    r133 = 'code'
+    r134 = PyDict_SetItem(r128, r133, r132)
+    dec_ref r132
+    r135 = r134 >= 0 :: signed
+    if not r135 goto L58 (error at <module>:50) else goto L38 :: bool
+L38:
+    r136 = ecc.channel.channel.globals :: static
+    r137 = 'NoiseModel'
+    r138 = CPyDict_GetItem(r136, r137)
+    if is_error(r138) goto L58 (error at <module>:51) else goto L39
+L39:
+    r139 = 'noise'
+    r140 = PyDict_SetItem(r128, r139, r138)
+    dec_ref r138
+    r141 = r140 >= 0 :: signed
+    if not r141 goto L58 (error at <module>:51) else goto L40 :: bool
+L40:
+    r142 = load_address PyType_Type
+    r143 = 'seed'
+    r144 = PyDict_SetItem(r128, r143, r142)
+    r145 = r144 >= 0 :: signed
+    if not r145 goto L58 (error at <module>:52) else goto L41 :: bool
+L41:
+    r146 = 'seed'
+    r147 = box(None, 1)
+    r148 = CPyDict_SetItem(r126, r146, r147)
+    r149 = r148 >= 0 :: signed
+    if not r149 goto L58 (error at <module>:52) else goto L42 :: bool
+L42:
+    r150 = load_address PyType_Type
+    r151 = '_rng'
+    r152 = PyDict_SetItem(r128, r151, r150)
+    r153 = r152 >= 0 :: signed
+    if not r153 goto L58 (error at <module>:53) else goto L43 :: bool
+L43:
+    r154 = ecc.channel.channel.globals :: static
+    r155 = 'field'
+    r156 = CPyDict_GetItem(r154, r155)
+    if is_error(r156) goto L58 (error at <module>:53) else goto L44
+L44:
+    r157 = box(bool, 0)
+    r158 = box(bool, 0)
+    r159 = [r157, r158]
+    r160 = load_address r159
+    r161 = ('init', 'repr')
+    r162 = PyObject_Vectorcall(r156, r160, 0, r161)
+    dec_ref r156
+    if is_error(r162) goto L58 (error at <module>:53) else goto L45
+L45:
+    r163 = '_rng'
+    r164 = CPyDict_SetItem(r126, r163, r162)
+    dec_ref r162
+    r165 = r164 >= 0 :: signed
+    if not r165 goto L58 (error at <module>:53) else goto L46 :: bool
+L46:
+    r166 = '__annotations__'
+    r167 = CPyDict_SetItem(r126, r166, r128)
+    r168 = r167 >= 0 :: signed
+    if not r168 goto L58 (error at <module>:37) else goto L47 :: bool
+L47:
+    r169 = 'mypyc filler docstring'
+    r170 = '__doc__'
+    r171 = CPyDict_SetItem(r126, r170, r169)
+    r172 = r171 >= 0 :: signed
+    if not r172 goto L58 (error at <module>:37) else goto L48 :: bool
+L48:
+    r173 = 'ecc.channel.channel'
+    r174 = '__module__'
+    r175 = CPyDict_SetItem(r126, r174, r173)
+    r176 = r175 >= 0 :: signed
+    if not r176 goto L58 (error at <module>:37) else goto L49 :: bool
+L49:
+    r177 = ecc.channel.channel.globals :: static
+    r178 = 'dataclass'
+    r179 = CPyDict_GetItem(r177, r178)
+    if is_error(r179) goto L58 (error at <module>:36) else goto L50
+L50:
+    r180 = 'dataclasses'
+    r181 = CPyDataclass_SleightOfHand(r179, r112, r126, r128, r180)
+    dec_ref r179
+    dec_ref r112
+    dec_ref r126
+    dec_ref r128
+    if not r181 goto L52 (error at <module>:37) else goto L51 :: bool
+L51:
+    return 1
+L52:
+    r182 = <error> :: None
+    return r182
+L53:
+    dec_ref r52
+    goto L52
+L54:
+    dec_ref r52
+    dec_ref r67
+    goto L52
+L55:
+    dec_ref r52
+    dec_ref r67
+    dec_ref r69
+    goto L52
+L56:
+    dec_ref r112
+    goto L52
+L57:
+    dec_ref r112
+    dec_ref r126
+    goto L52
+L58:
+    dec_ref r112
+    dec_ref r126
+    dec_ref r128
+    goto L52

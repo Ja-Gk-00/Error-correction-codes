@@ -1,0 +1,45 @@
+[project]
+name = "error-correction-codes"
+version = "0.1.0"
+description = "A comprehensive library for error correction codes: Hamming, Reed-Solomon, and Polar codes with visualization and benchmarking tools."
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=7.2.0",
+    "matplotlib>=3.10.0",
+    "numpy>=2.0.0",
+    "pillow>=11.0.0",
+    "reedsolo>=1.7.0",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.15.0",
+    "pytest>=9.0.2",
+    "ruff>=0.15.0",
+    "setuptools>=75.0.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "reedsolo"
+ignore_missing_imports = true
+
+[tool.ty]
+python-version = "3.12"
