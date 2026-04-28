@@ -10,6 +10,21 @@ A comprehensive Python library for simulating, benchmarking, and visualizing **e
 | **Reed-Solomon** | `ReedSolomonCode(nsym)` | `nsym` = ECC symbols (default 10) | Corrects up to `nsym/2` *byte* errors per 255-byte block |
 | **Polar** | `PolarCode(n, k, design_snr_db)` | `n` = code length, `k` = info bits | Capacity-approaching; successive-cancellation decoding |
 
+## Running the streamlit application
+
+To run the streamlit application enter the following commands:
+
+```bash
+
+# package sync
+uv sync
+
+# running app through streamlit
+uv run streamlit run .\run_app.py
+```
+
+Also, you must make sure you have the [uv package manager](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine.
+
 ## Architecture
 
 ```
