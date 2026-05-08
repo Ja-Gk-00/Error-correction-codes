@@ -1,6 +1,3 @@
-"""Core data structures for error correction codes."""
-
-
 def __getattr__(name: str):  # noqa: N807
     _imports = {
         "BinaryConverter": "ecc.core.binary",

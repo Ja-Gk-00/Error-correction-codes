@@ -1,5 +1,3 @@
-"""Tests for Message — construction, properties, and reconstruction."""
-
 import numpy as np
 
 from ecc.core.message import Message
@@ -57,14 +55,12 @@ class TestMessageFromBits:
 
 class TestMessageReconstruct:
     def test_truncated_bits_str(self):
-        """Reconstruction from shorter bits should still work (truncated)."""
         msg = Message.from_str("AB")
         short = msg.bits[:8]  # only first byte
         result = msg.reconstruct(short)
         assert isinstance(result, str)
 
     def test_corrupted_bits_image(self):
-        """Image reconstruction from noisy bits returns array of correct shape."""
         img = np.zeros((3, 3, 3), dtype=np.uint8)
         msg = Message.from_image(img)
         noisy = msg.bits.copy()

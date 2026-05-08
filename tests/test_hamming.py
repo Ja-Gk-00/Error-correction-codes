@@ -1,5 +1,3 @@
-"""Tests for HammingCode — encoding, decoding, and error correction."""
-
 import numpy as np
 import pytest
 
@@ -48,7 +46,6 @@ class TestHammingRoundtrip:
 class TestHammingSingleBitCorrection:
     @pytest.mark.parametrize("r", [2, 3, 4])
     def test_corrects_1bit_per_block(self, r):
-        """Flip exactly 1 bit in each block — should be perfectly corrected."""
         hc = HammingCode(r=r, secded=False)
         n = 2**r - 1
         k = n - r

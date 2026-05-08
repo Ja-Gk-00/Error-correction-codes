@@ -1,5 +1,3 @@
-"""Message container that wraps raw data with its binary representation."""
-
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -11,27 +9,10 @@ from ecc.core.binary import BinaryConverter
 
 @dataclass
 class Message:
-    """Immutable wrapper around a chunk of data and its binary form.
-
-    Parameters
-    ----------
-    data:
-        The original payload (``bytes``, ``str``, ``int``, or image ``NDArray``).
-    data_type:
-        One of ``"bytes"``, ``"str"``, ``"int"``, ``"image"``.
-        Inferred automatically when *data* is passed to :meth:`from_data`.
-    bits:
-        Binary representation as a 1-D ``uint8`` array of 0/1 values.
-    metadata:
-        Arbitrary extra information (e.g. image shape, encoding).
-    """
-
     data: Any
     data_type: str
-    bits: Any  # NDArray[np.uint8] — typed as Any for mypyc compat
+    bits: Any  # NDArray[np.uint8]
     metadata: dict[str, Any] = field(default_factory=dict)
-
-    # --- Constructors ---
 
     @classmethod
     def from_bytes(cls, data: bytes) -> Message:
@@ -60,13 +41,9 @@ class Message:
 
     @classmethod
     def from_bits(cls, bits: NDArray[np.uint8]) -> Message:
-        """Create a message from raw bits (data_type='bits')."""
         return cls(data=bits, data_type="bits", bits=bits.astype(np.uint8))
 
-    # --- Reconstruction ---
-
     def reconstruct(self, bits: NDArray[np.uint8]) -> Any:
-        """Reconstruct the original data type from (possibly corrupted) bits."""
         if self.data_type == "bytes":
             return BinaryConverter.binary_to_bytes(bits)
         if self.data_type == "str":
@@ -77,8 +54,6 @@ class Message:
         if self.data_type == "image":
             return BinaryConverter.binary_to_image(bits, self.metadata["shape"])
         return bits
-
-    # --- Utilities ---
 
     @property
     def bit_length(self) -> int:

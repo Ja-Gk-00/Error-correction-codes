@@ -1,5 +1,3 @@
-"""Tests for Statistics — computation and derived metrics."""
-
 import numpy as np
 import pytest
 
@@ -11,11 +9,11 @@ from ecc.stats.metrics import Statistics
 class TestStatisticsCompute:
     def _make_stats(self, n_errors_before=10, n_errors_after=2, n_bits=1000):
         original = np.zeros(n_bits, dtype=np.uint8)
-        encoded = np.zeros(n_bits * 2, dtype=np.uint8)  # rate 1/2
+        encoded = np.zeros(n_bits * 2, dtype=np.uint8)
         noisy = encoded.copy()
-        noisy[:n_errors_before] = 1  # errors in encoded stream
+        noisy[:n_errors_before] = 1
         decoded = original.copy()
-        decoded[:n_errors_after] = 1  # residual errors after decode
+        decoded[:n_errors_after] = 1
 
         code = HammingCode(r=3)
         noise = BinarySymmetricChannel(p=0.01)

@@ -1,8 +1,4 @@
-"""Channel models and noise simulation."""
-
-
 def __getattr__(name: str):  # noqa: N807
-    """Lazy imports to avoid circular dependencies with mypyc-compiled modules."""
     _imports = {
         "Channel": "ecc.channel.channel",
         "BinarySymmetricChannel": "ecc.channel.noise",

@@ -1,6 +1,3 @@
-"""Error correction code implementations."""
-
-
 def __getattr__(name: str):  # noqa: N807
     _imports = {
         "ErrorCorrectionCode": "ecc.codes.base",

@@ -1,5 +1,3 @@
-"""Visualization utilities for error-correction experiments."""
-
 from __future__ import annotations
 
 from collections.abc import Sequence
@@ -14,8 +12,6 @@ from ecc.stats.metrics import Statistics
 
 
 class Visualizer:
-    """Static helper methods for producing publication-quality plots."""
-
     COLORS: ClassVar[list[str]] = [
         "#2196F3",
         "#FF9800",
@@ -34,10 +30,7 @@ class Visualizer:
 
     @classmethod
     def apply_style(cls) -> None:
-        """Apply a clean default matplotlib style."""
         plt.rcParams.update(cls.STYLE_DEFAULTS)
-
-    # --- Image comparison ---
 
     @staticmethod
     def compare_images(
@@ -45,17 +38,6 @@ class Visualizer:
         reconstructions: dict[str, NDArray[np.uint8]],
         title: str = "Image Reconstruction Comparison",
     ) -> Figure:
-        """Show the original image alongside several reconstructions.
-
-        Parameters
-        ----------
-        original:
-            Original image array (HxW or HxWxC).
-        reconstructions:
-            Mapping ``label -> reconstructed_image``.
-        title:
-            Super-title for the figure.
-        """
         n = 1 + len(reconstructions)
         fig, axes = plt.subplots(1, n, figsize=(4 * n, 4))
         if n == 1:
@@ -75,15 +57,12 @@ class Visualizer:
         fig.tight_layout()
         return fig
 
-    # --- Error heatmap ---
-
     @staticmethod
     def error_heatmap(
         original: NDArray[np.uint8],
         reconstructed: NDArray[np.uint8],
         title: str = "Pixel Error Map",
     ) -> Figure:
-        """Show per-pixel absolute difference between original and reconstructed images."""
         diff = np.abs(original.astype(np.int16) - reconstructed.astype(np.int16))
         if diff.ndim == 3:
             diff = diff.mean(axis=2)
@@ -96,14 +75,11 @@ class Visualizer:
         fig.tight_layout()
         return fig
 
-    # --- Statistics bar charts ---
-
     @staticmethod
     def bar_chart_ber(
         stats_list: Sequence[Statistics],
         title: str = "Bit Error Rate Comparison",
     ) -> Figure:
-        """Grouped bar chart of BER before/after decoding for each experiment."""
         labels = [f"{s.code_name}\n{s.noise_name}" for s in stats_list]
         ber_before = [s.ber_before_decode for s in stats_list]
         ber_after = [s.ber_after_decode for s in stats_list]
@@ -122,7 +98,6 @@ class Visualizer:
         ax.legend()
         ax.set_yscale("symlog", linthresh=1e-6)
 
-        # Value labels
         for bars in (bars1, bars2):
             for bar in bars:
                 h = bar.get_height()
@@ -145,7 +120,6 @@ class Visualizer:
         stats_list: Sequence[Statistics],
         title: str = "Error Correction Effectiveness",
     ) -> Figure:
-        """Bar chart of correction effectiveness (%) for each experiment."""
         labels = [f"{s.code_name}\n{s.noise_name}" for s in stats_list]
         effectiveness = [s.correction_effectiveness * 100 for s in stats_list]
 
@@ -177,7 +151,6 @@ class Visualizer:
         stats_list: Sequence[Statistics],
         title: str = "Encoding / Decoding Time",
     ) -> Figure:
-        """Stacked bar chart showing encode + decode times."""
         labels = [f"{s.code_name}\n{s.noise_name}" for s in stats_list]
         enc_times = [s.encode_time_s for s in stats_list]
         dec_times = [s.decode_time_s for s in stats_list]
@@ -199,9 +172,7 @@ class Visualizer:
         stats_list: Sequence[Statistics],
         title: str = "Redundancy Overhead",
     ) -> Figure:
-        """Bar chart of redundancy ratio and code rate."""
         labels = [s.code_name for s in stats_list]
-        # Deduplicate (same code appears multiple times for different noise levels)
         seen: dict[str, Statistics] = {}
         for s in stats_list:
             if s.code_name not in seen:
@@ -237,7 +208,6 @@ class Visualizer:
     def summary_table(
         stats_list: Sequence[Statistics],
     ) -> Figure:
-        """Render a summary table as a matplotlib figure."""
         headers = [
             "Code",
             "Noise",
@@ -278,7 +248,6 @@ class Visualizer:
         table.set_fontsize(8)
         table.scale(1, 1.4)
 
-        # Style header
         for j in range(len(headers)):
             cell = table[0, j]
             cell.set_facecolor("#37474F")

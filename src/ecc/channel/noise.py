@@ -26,7 +26,6 @@ class NoiseModel(ABC):
         """Return a noisy copy of *data* (0/1 array). Original is not mutated."""
 
     def expected_ber(self) -> float:
-        """Expected bit-error rate (if analytically known), else ``NaN``."""
         return float("nan")
 
     def __repr__(self) -> str:
@@ -34,14 +33,6 @@ class NoiseModel(ABC):
 
 
 class BinarySymmetricChannel(NoiseModel):
-    """Binary Symmetric Channel (BSC) — each bit is flipped independently with probability *p*.
-
-    Parameters
-    ----------
-    p:
-        Crossover (bit-flip) probability.  ``0.0`` = no noise, ``0.5`` = random.
-    """
-
     def __init__(self, p: float = 0.01) -> None:
         if not 0.0 <= p <= 1.0:
             raise ValueError("p must be in [0, 1]")
@@ -70,16 +61,6 @@ class BinarySymmetricChannel(NoiseModel):
 
 
 class BurstErrorChannel(NoiseModel):
-    """Burst-error channel — errors occur in contiguous bursts.
-
-    Parameters
-    ----------
-    burst_prob:
-        Probability that a burst starts at any given bit position.
-    burst_length:
-        Fixed length (in bits) of each error burst.
-    """
-
     def __init__(self, burst_prob: float = 0.005, burst_length: int = 8) -> None:
         if not 0.0 <= burst_prob <= 1.0:
             raise ValueError("burst_prob must be in [0, 1]")
@@ -112,8 +93,6 @@ class BurstErrorChannel(NoiseModel):
             noisy[s:end] ^= 1
         return noisy
 
-
-# --- Preset noise levels for experiments ---
 
 NOISE_PRESETS: dict[str, NoiseModel] = {
     "small": BinarySymmetricChannel(p=0.001),

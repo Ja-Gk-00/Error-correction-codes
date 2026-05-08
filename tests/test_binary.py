@@ -1,5 +1,3 @@
-"""Tests for BinaryConverter — roundtrip conversions for all data types."""
-
 import numpy as np
 
 from ecc.core.binary import BinaryConverter

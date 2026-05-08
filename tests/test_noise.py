@@ -1,5 +1,3 @@
-"""Tests for noise models — BSC and BurstErrorChannel."""
-
 import numpy as np
 import pytest
 
@@ -71,8 +69,6 @@ class TestBurstErrorChannel:
         bec = BurstErrorChannel(burst_prob=1.0, burst_length=8)
         data = np.zeros(16, dtype=np.uint8)
         noisy = bec.apply(data, np.random.default_rng(0))
-        # With burst_prob=1.0, every position triggers a burst
-        # So all bits should be flipped
         assert np.sum(noisy) > 0
 
 

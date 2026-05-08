@@ -1,5 +1,3 @@
-"""Tests for PolarCode — encoding, decoding, SC, and SC-Flip."""
-
 import numpy as np
 import pytest
 
@@ -18,7 +16,7 @@ class TestPolarProperties:
 
     def test_invalid_n(self):
         with pytest.raises(ValueError):
-            PolarCode(n=100)  # not a power of 2
+            PolarCode(n=100)
 
     def test_invalid_k(self):
         with pytest.raises(ValueError):
@@ -31,7 +29,7 @@ class TestPolarRoundtrip:
     @pytest.mark.parametrize("n,k", [(8, 4), (16, 8), (64, 32), (256, 128)])
     def test_noiseless_roundtrip(self, n, k, random_bits):
         pc = PolarCode(n=n, k=k, max_flips=0)
-        bits = random_bits[:256]  # keep it short
+        bits = random_bits[:256]
         encoded = pc.encode(bits)
         decoded = pc.decode(encoded)[: len(bits)]
         np.testing.assert_array_equal(decoded, bits)
@@ -39,7 +37,7 @@ class TestPolarRoundtrip:
     def test_encode_doubles_length(self, small_bits):
         pc = PolarCode(n=16, k=8, max_flips=0)
         encoded = pc.encode(small_bits)
-        assert len(encoded) == len(small_bits) * 2  # rate 1/2
+        assert len(encoded) == len(small_bits) * 2
 
 
 class TestPolarSingleBitCorrection:
@@ -54,14 +52,14 @@ class TestPolarSingleBitCorrection:
                 noisy[pos] ^= 1
                 decoded = pc.decode(noisy)[:4]
                 np.testing.assert_array_equal(
-                    decoded, data,
+                    decoded,
+                    data,
                     err_msg=f"val={val}, flip pos={pos}",
                 )
 
 
 class TestPolarSCFlip:
     def test_flip_improves_over_sc(self):
-        """SC-Flip should correct at least as many errors as plain SC."""
         pc_sc = PolarCode(n=64, k=32, max_flips=0)
         pc_flip = PolarCode(n=64, k=32, max_flips=8)
 
@@ -69,7 +67,6 @@ class TestPolarSCFlip:
         data = rng.integers(0, 2, size=128, dtype=np.uint8)
         encoded = pc_sc.encode(data)
 
-        # Moderate noise: flip ~5% of bits
         noisy = encoded.copy()
         flip_mask = rng.random(len(encoded)) < 0.05
         noisy[flip_mask] ^= 1
@@ -93,8 +90,8 @@ class TestPolarSCFlip:
 class TestPolarFrozenBits:
     def test_frozen_count(self):
         pc = PolarCode(n=64, k=32)
-        assert np.sum(pc._frozen_mask) == 32  # n - k frozen
-        assert np.sum(~pc._frozen_mask) == 32  # k info
+        assert np.sum(pc._frozen_mask) == 32
+        assert np.sum(~pc._frozen_mask) == 32
 
     def test_info_indices_match(self):
         pc = PolarCode(n=16, k=8)

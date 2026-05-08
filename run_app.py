@@ -1,5 +1,3 @@
-"""Launch the ECC Streamlit app."""
-
 import subprocess
 import sys
 import pathlib

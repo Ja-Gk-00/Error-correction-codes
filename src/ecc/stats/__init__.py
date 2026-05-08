@@ -1,6 +1,3 @@
-"""Statistics and metrics for error correction benchmarking."""
-
-
 def __getattr__(name: str):  # noqa: N807
     _imports = {
         "Statistics": "ecc.stats.metrics",

@@ -1,5 +1,3 @@
-"""Tests for Channel — end-to-end encode → noise → decode pipeline."""
-
 import numpy as np
 import pytest
 
@@ -79,7 +77,6 @@ class TestChannelReproducibility:
         r1 = ch1.transmit(random_bits)
         r2 = ch2.transmit(random_bits)
 
-        # Very unlikely to be identical with different seeds
         assert not np.array_equal(r1.noisy_bits, r2.noisy_bits)
 
 
@@ -92,6 +89,8 @@ class TestChannelECCImproves:
 
     def test_polar_reduces_ber(self, random_bits):
         p = 0.01
-        ch = Channel(code=PolarCode(n=64, k=32, max_flips=4), noise=BinarySymmetricChannel(p=p), seed=42)
+        ch = Channel(
+            code=PolarCode(n=64, k=32, max_flips=4), noise=BinarySymmetricChannel(p=p), seed=42
+        )
         result = ch.transmit(random_bits)
         assert result.stats.ber_after_decode < p

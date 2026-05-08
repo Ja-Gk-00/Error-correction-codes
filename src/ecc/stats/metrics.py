@@ -1,5 +1,3 @@
-"""Performance metrics for error-correction experiments."""
-
 from dataclasses import dataclass
 
 import numpy as np
@@ -11,35 +9,24 @@ from ecc.codes.base import ErrorCorrectionCode
 
 @dataclass
 class Statistics:
-    """Aggregated statistics for a single encode -> noise -> decode run.
-
-    All rates are expressed as fractions in ``[0, 1]``.
-    """
-
-    # --- Identification ---
     code_name: str
     noise_name: str
-
-    # --- Error rates ---
-    ber_before_decode: float  # BER of noisy encoded stream vs. clean encoded stream
-    ber_after_decode: float  # BER of decoded stream vs. original data
+    ber_before_decode: float
+    ber_after_decode: float
     bit_errors_before: int
     bit_errors_after: int
 
-    # --- Code properties ---
     code_rate: float
     redundancy_ratio: float
     original_bits: int
     encoded_bits: int
     overhead_bits: int
 
-    # --- Timing ---
     encode_time_s: float
     decode_time_s: float
-    throughput_kbps: float  # original bits / total time
+    throughput_kbps: float
 
-    # --- Derived ---
-    correction_effectiveness: float  # fraction of channel errors corrected
+    correction_effectiveness: float
 
     @classmethod
     def compute(
@@ -66,7 +53,6 @@ class Statistics:
         throughput = (n_original / 1000.0) / total_time if total_time > 0 else float("inf")
 
         if bit_errors_before > 0:
-            # Scale channel errors to data-bit equivalent
             channel_errors_data_equiv = bit_errors_before * (n_original / n_encoded)
             corrected = max(0.0, channel_errors_data_equiv - bit_errors_after)
             effectiveness = corrected / channel_errors_data_equiv
@@ -92,7 +78,6 @@ class Statistics:
         )
 
     def summary(self) -> str:
-        """One-line human-readable summary."""
         return (
             f"{self.code_name} | {self.noise_name} | "
             f"BER: {self.ber_after_decode:.6f} | "
@@ -104,7 +89,6 @@ class Statistics:
         )
 
     def to_dict(self) -> dict[str, float | int | str]:
-        """Return all fields as a flat dictionary (useful for DataFrames)."""
         return {
             "code": self.code_name,
             "noise": self.noise_name,

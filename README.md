@@ -10,7 +10,22 @@ A comprehensive Python library for simulating, benchmarking, and visualizing **e
 | **Reed-Solomon** | `ReedSolomonCode(nsym)` | `nsym` = ECC symbols (default 10) | Corrects up to `nsym/2` *byte* errors per 255-byte block |
 | **Polar** | `PolarCode(n, k, design_snr_db)` | `n` = code length, `k` = info bits | Capacity-approaching; successive-cancellation decoding |
 
-## Running the streamlit application
+## Uruchamianie aplikacji/instalacja [pl]
+
+By uruchomić aplikację streamlit, wpisz poniższe komendy:
+
+```bash
+
+# synchronizacja pakietów
+uv sync
+
+# uruchamianie aplikacji streamlit
+uv run streamlit run .\run_app.py
+```
+
+By powyższe polecenia mogły się wykonać poprawnie, upewnij się, iż posiadasz zainstalowany [menadżer pakietów uv](https://docs.astral.sh/uv/getting-started/installation/) na Twojej maszynie.
+
+## Running the streamlit application/installation [eng]
 
 To run the streamlit application enter the following commands:
 

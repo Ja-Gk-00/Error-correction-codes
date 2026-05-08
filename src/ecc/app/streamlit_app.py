@@ -1,9 +1,3 @@
-"""Streamlit interactive demo for Error Correction Codes.
-
-Run with:
-    uv run streamlit run src/ecc/app/streamlit_app.py
-"""
-
 import pathlib
 import sys
 import time
@@ -135,7 +129,9 @@ def _visual_control_mask(code_key: str, n_bits: int) -> np.ndarray:
     return mask
 
 
-def _message_to_encoded_positions(code_key: str, code: object, msg_positions: np.ndarray) -> np.ndarray:
+def _message_to_encoded_positions(
+    code_key: str, code: object, msg_positions: np.ndarray
+) -> np.ndarray:
     if len(msg_positions) == 0:
         return np.array([], dtype=int)
     if code_key == "hamming":
@@ -148,7 +144,9 @@ def _message_to_encoded_positions(code_key: str, code: object, msg_positions: np
     return np.array([], dtype=int)
 
 
-def _visual_to_encoded_position(code_key: str, code: object, visual_idx: int, encoded_len: int) -> int:
+def _visual_to_encoded_position(
+    code_key: str, code: object, visual_idx: int, encoded_len: int
+) -> int:
     visual_offset = visual_idx % HAMMING_VISUAL_BLOCK_SIZE
     if code_key == "hamming" and visual_offset in HAMMING_VISUAL_CONTROL_POSITIONS:
         parity_offsets = [0, 1, 3, code.n]
@@ -176,7 +174,10 @@ def _visual_received_bits(
     for idx in range(n_bits):
         encoded_idx = _visual_to_encoded_position(code_key, code, idx, len(encoded))
         visual_errors[idx] = encoded[encoded_idx] != received[encoded_idx]
-        if idx % HAMMING_VISUAL_BLOCK_SIZE in HAMMING_VISUAL_CONTROL_POSITIONS and code_key == "hamming":
+        if (
+            idx % HAMMING_VISUAL_BLOCK_SIZE in HAMMING_VISUAL_CONTROL_POSITIONS
+            and code_key == "hamming"
+        ):
             visual_bits[idx] = received[encoded_idx]
     return visual_bits, visual_errors
 
@@ -298,7 +299,9 @@ def _polar_syndrome_rows(code: PolarCode, received: np.ndarray) -> list[dict[str
     return rows
 
 
-def _syndrome_table(code_key: str, code: object, received: np.ndarray) -> tuple[list[dict[str, object]], str]:
+def _syndrome_table(
+    code_key: str, code: object, received: np.ndarray
+) -> tuple[list[dict[str, object]], str]:
     if code_key == "hamming":
         return _hamming_syndrome_rows(code, received), "Hamming syndrome"
     if code_key == "rs":
@@ -377,7 +380,9 @@ def _plot_message_matrix(
     fig_w = max(3.6, cols * 0.48)
     fig_h = max(3.6 if show_control_legend else 3.0, rows * 0.48 + 1.1)
     fig, ax = plt.subplots(1, 1, figsize=(fig_w, fig_h), facecolor="#111111")
-    fig.subplots_adjust(left=0.01, right=0.99, top=0.82, bottom=0.18 if show_control_legend else 0.03)
+    fig.subplots_adjust(
+        left=0.01, right=0.99, top=0.82, bottom=0.18 if show_control_legend else 0.03
+    )
     _draw_grid(ax, image, title, rows, cols)
     if show_control_legend:
         handles = [
@@ -503,14 +508,18 @@ def _render_interactive_matrix(
                 role = "C" if visual_control_mask[idx] else "D"
                 prefix = "E" if visual_error_mask[idx] else role
                 label = f"{prefix}{int(visual_bits[idx])}"
-                help_text = f"Matrix bit {idx + 1}: {'control' if visual_control_mask[idx] else 'data'}"
-                if st.button(label, key=f"flip:{run_id}:{idx}", help=help_text, use_container_width=True):
+                help_text = (
+                    f"Matrix bit {idx + 1}: {'control' if visual_control_mask[idx] else 'data'}"
+                )
+                if st.button(
+                    label, key=f"flip:{run_id}:{idx}", help=help_text, use_container_width=True
+                ):
                     encoded_idx = _visual_to_encoded_position(code_key, code, idx, len(encoded))
                     st.session_state["received_bits"][encoded_idx] ^= 1
                     st.rerun()
 
 
-st.title("Error Correction Codes")
+st.title("Error Correction Codes. Application made by Jan Gaska, Sandra Adamiec and Kacper Grybos.")
 st.markdown(
     "Encode a message, perturb the transmitted codeword, and watch the decoder "
     "move from original bits through channel errors to the repaired payload."
@@ -749,7 +758,10 @@ for col_idx, title, bits, controls, wrong, recovered in pipeline_items:
 
 for arrow_idx in [1, 3, 5, 7]:
     with pipe_cols[arrow_idx]:
-        st.markdown("<div style='text-align:center; padding-top:4.5rem; font-size:1.6rem;'>→</div>", unsafe_allow_html=True)
+        st.markdown(
+            "<div style='text-align:center; padding-top:4.5rem; font-size:1.6rem;'>→</div>",
+            unsafe_allow_html=True,
+        )
 
 syndrome_df, syndrome_title = _syndrome_table(code_key, code, received_bits)
 st.subheader(syndrome_title)

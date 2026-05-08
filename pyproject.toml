@@ -43,4 +43,4 @@ module = "reedsolo"
 ignore_missing_imports = true
 
 [tool.ty]
-python-version = "3.12"
+python-version = "3.21"

@@ -1,5 +1,3 @@
-"""Abstract base class for all error correction codes."""
-
 from abc import ABC, abstractmethod
 
 import numpy as np
@@ -7,14 +5,6 @@ from numpy.typing import NDArray
 
 
 class ErrorCorrectionCode(ABC):
-    """Base interface that every error-correction code must implement.
-
-    Subclasses encode/decode **binary** data represented as 1-D ``uint8``
-    arrays of 0s and 1s.
-    """
-
-    # --- Abstract interface ---
-
     @property
     @abstractmethod
     def name(self) -> str:
@@ -42,8 +32,6 @@ class ErrorCorrectionCode(ABC):
     @abstractmethod
     def decode(self, data: NDArray[np.uint8]) -> NDArray[np.uint8]:
         """Decode a (possibly corrupted) binary stream back to the original length."""
-
-    # --- Helpers available to all subclasses ---
 
     @staticmethod
     def _pad_to_multiple(data: NDArray[np.uint8], block_size: int) -> NDArray[np.uint8]:
