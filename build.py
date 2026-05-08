@@ -1,11 +1,3 @@
-"""Convenience script to compile ECC modules with mypyc.
-
-Usage
------
-    python build.py          # compile in-place
-    python build.py clean    # remove build artifacts
-"""
-
 import os
 import shutil
 import subprocess
@@ -17,14 +9,12 @@ SRC = os.path.join(ROOT, "src")
 
 
 def clean() -> None:
-    """Remove all mypyc / setuptools build artifacts."""
     for dirpath in ["build", "dist", "error_correction_codes.egg-info"]:
         path = os.path.join(ROOT, dirpath)
         if os.path.isdir(path):
             shutil.rmtree(path)
             print(f"  removed {dirpath}/")
 
-    # Remove compiled .pyd / .so files next to source
     for root, _dirs, files in os.walk(SRC):
         for f in files:
             if f.endswith((".pyd", ".so", ".c")):
@@ -32,7 +22,6 @@ def clean() -> None:
                 os.remove(full)
                 print(f"  removed {os.path.relpath(full, ROOT)}")
 
-    # Remove __pycache__ dirs
     for root, dirs, _files in os.walk(SRC):
         for d in dirs:
             if d == "__pycache__":
@@ -42,7 +31,6 @@ def clean() -> None:
 
 
 def _clean_pycache() -> None:
-    """Remove __pycache__ dirs to prevent stale bytecode shadowing compiled extensions."""
     for root, dirs, _files in os.walk(SRC):
         for d in dirs:
             if d == "__pycache__":
@@ -50,7 +38,6 @@ def _clean_pycache() -> None:
 
 
 def build() -> None:
-    """Run mypyc compilation in-place."""
     _clean_pycache()
     print("Compiling ECC modules with mypyc...")
     print("=" * 60)
